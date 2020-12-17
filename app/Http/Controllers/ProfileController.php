@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller
+class ProfileController extends Controller
 {
     public function index()
     {
-        $posts = Post::simplePaginate(4);
+        $posts = Post::where('user_id', Auth::id())->simplePaginate(4);
 
-        return view('posts.index', [
+        return view('profile.index', [
             'posts' => $posts,
         ]);
     }
@@ -43,5 +43,21 @@ class PostController extends Controller
             'post' => $post,
             'comments' => $comments,
         ]);
+    }
+    
+    public function update(Request $request, Post $post)
+    {
+        $post->title = $request->newTitle;
+        $post->body = $request->newBody;
+        $post->save();
+
+        return back();
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect(route('profile'));
     }
 }

@@ -28,10 +28,6 @@
             @if ($posts->count())
                 @foreach ($posts as $post)
                 <div class="card mb-4">
-                    {{-- <div class="card-header text-muted">
-                        Posted on <span>{{ $post->created_at }}</span> By
-                        <a href="#">{{ $post->user->name }}</a>
-                    </div> --}}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -42,7 +38,12 @@
                             <div class="col-lg-6">
                                 <h2 class="card-title">{{ $post->title }}</h2>
                                 <p class="card-text">{{ $post->body}}</p>
-                                <a href="/posts/{{ $post->id }}" class="btn btn-primary">Read More &rarr;</a>
+                                <h3>Hello</h3>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <a href="/posts/{{ $post->id }}" class="btn btn-primary">Read More &rarr;</a>
+                                    </div>   
+                                </div>
                             </div>
                         </div>
                     </div>
