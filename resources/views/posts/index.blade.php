@@ -53,9 +53,9 @@
                 @endforeach
 
                 {{-- Pagination --}}
-                <div class="d-flex justify-content-center">
-                    {!! $posts->links() !!}
-                </div>
+{{--                <div class="d-flex justify-content-center">--}}
+{{--                    {!! $posts->links() !!}--}}
+{{--                </div>--}}
 
             @else
                 <p>There are no posts</p>

@@ -1,22 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class UserController extends Controller
 {
     public $successStatus = 200;
-
-    /** 
-     * login api 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-    public function login(Request $request){ 
+    public function login(Request $request){
 
         $loginData = $request->validate([
             'email' => 'email|required',
@@ -31,13 +25,9 @@ class UserController extends Controller
 
         return response(['user' => auth()->user(), 'access_token' => $accessToken]);
     }
-    /** 
-     * Register api 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-    public function register(Request $request) 
-    { 
+
+    public function register(Request $request)
+    {
         $validatedData = $request->validate([
             'name' => 'required|max:55',
             'email' => 'email|required|unique:users',
@@ -50,6 +40,6 @@ class UserController extends Controller
 
         $accessToken = $user->createToken('authToken')->accessToken;
 
-        return response([ 'user' => $user, 'access_token' => $accessToken]); 
+        return response([ 'user' => $user, 'access_token' => $accessToken]);
     }
 }

@@ -10,11 +10,9 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $posts = Post::where('user_id', Auth::id())->simplePaginate(4);
+        $posts = Post::where('user_id', Auth::id())->get();
 
-        return view('profile.index', [
-            'posts' => $posts,
-        ]);
+        return response($posts, 200);
     }
 
     public function store(Request $request)
@@ -44,20 +42,24 @@ class ProfileController extends Controller
             'comments' => $comments,
         ]);
     }
-    
+
     public function update(Request $request, Post $post)
     {
         $post->title = $request->newTitle;
         $post->body = $request->newBody;
         $post->save();
 
-        return back();
+        return response()->json([
+            "message" => "Post Updated"
+        ], 200);
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
 
-        return redirect(route('profile'));
+        return response()->json([
+            "message" => "Post Deleted"
+        ], 200);
     }
 }

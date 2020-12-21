@@ -5,20 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::simplePaginate(4);
+//        dd(Auth::user());
 
-        return view('posts.index', [
-            'posts' => $posts,
-        ]);
+        $posts = Post::all();
+
+        return response($posts, 200);
     }
 
     public function store(Request $request)
     {
+//        dd($request->user());
+        if(!auth()->user())
+        {
+            return response()->json([
+               "message" => "You are not authorized"
+            ], 401);
+        }
+
         $this->validate($request, [
             'body' => 'required',
             'title' => 'required',
@@ -29,7 +38,9 @@ class PostController extends Controller
             'body' => $request->body,
         ]);
 
-        return back();
+        return response()->json([
+            "message" => "Post Created"
+        ], 201);
     }
 
     public function details($id)
@@ -39,9 +50,9 @@ class PostController extends Controller
 
         // dd($comments);
 
-        return view('posts.details', [
+        return response([
             'post' => $post,
             'comments' => $comments,
-        ]);
+        ], 200);
     }
 }

@@ -11,12 +11,14 @@ class CommentController extends Controller
         $this->validate($request, [
             'body' => 'required',
         ]);
-        
+
         $request->user()->comments()->create([
             'post_id' => $id,
             'body' => $request->body,
         ]);
 
-        return back();
+        return response()->json([
+            "message" => "Comment Created"
+        ], 201);
     }
 }
