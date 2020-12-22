@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
 
-    // dd(auth()->user()->posts);
+    // dd('here');
     
     return redirect('posts');
 });

@@ -30,7 +30,7 @@
                         <!-- Date/Time -->
                         Posted <span>{{ $post->created_at->diffForHumans() }}</span> By <b><span>{{ $post->user->name }}</span></b>
                     </div>
-                    @if ($post->ownedBy(auth()->user()))
+                    @if (auth()->user() && $post->ownedBy(auth()->user()))
                         <div class="col-lg-3">
                             <ul class="list-inline m-0">
                                 <li class="list-inline-item">
@@ -137,13 +137,13 @@
                                     <div class="col-xs-10 col-md-11">
                                         <div>
                                             <div class="mic-info">
-                                                By:  <b><span>{{ $post->user->name }}</span></b> <span>{{ $post->created_at->diffForHumans() }}</span>
+                                                By:  <b><span>{{ $comment->user->name }}</span></b> <span>{{ $post->created_at->diffForHumans() }}</span>
                                             </div>
                                         </div>
                                         <div class="comment-text">
                                             {{ $comment->body }}
                                         </div>
-                                        @if ($post->ownedBy(auth()->user()))
+                                        @if (auth()->user() && $comment->ownedBy(auth()->user()))
                                             <div class="action">
                                                 <button type="button" class="btn btn-primary" style="padding: 1px 7px" title="Edit">
                                                     <i class="fa fa-edit"></i>
