@@ -13,7 +13,8 @@ class PostController extends Controller
     {
 //        dd(Auth::user());
 
-        $posts = Post::all();
+        $posts = Post::simplePaginate(4);
+        // $posts = Post::simplePaginate(4, ['*'], 'page', 1);
 
         return response($posts, 200);
     }
