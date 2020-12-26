@@ -31,5 +31,8 @@ Homestead.json
 *.meta.*
 _ide_*
 .idea
+packages
+plugins
+composer_example.json
 
 # End of https://www.toptal.com/developers/gitignore/api/laravel

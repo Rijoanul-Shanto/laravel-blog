@@ -12,7 +12,7 @@ Route::get('/', function () {
     Artisan::call('route:clear');
 
     // dd('here');
-    
+
     return redirect('posts');
 });
 Auth::routes();
@@ -29,3 +29,9 @@ Route::post('/posts/{id}/comments', [App\Http\Controllers\CommentController::cla
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
 Route::delete('/profile/{post}', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('post.destroy');
 Route::put('/profile/{post}', [App\Http\Controllers\ProfileController::class, 'update'])->name('post.update');
+
+Route::get('/file', [App\Http\Controllers\FileUploadController::class, 'index'])->name('file.upload');
+
+Route::get('/plugins', [App\Http\Controllers\PluginController::class, 'index'])->name('plugins');
+Route::post('/plugins', [App\Http\Controllers\PluginController::class, 'store'])->name('plugins.upload');
+Route::delete('/plugins/{plugin}', [App\Http\Controllers\PluginController::class, 'destroy'])->name('plugins.delete');

@@ -28,17 +28,22 @@
                 <div class="row">
                     <div class="col-lg-8" style="padding-top: 9px">
                         <!-- Date/Time -->
-                        Posted <span>{{ $post->created_at->diffForHumans() }}</span> By <b><span>{{ $post->user->name }}</span></b>
+                        Posted <span>{{ $post->created_at->diffForHumans() }}</span> By
+                        <b><span>{{ $post->user->name }}</span></b>
                     </div>
                     @if (auth()->user() && $post->ownedBy(auth()->user()))
                         <div class="col-lg-3">
                             <ul class="list-inline m-0">
                                 <li class="list-inline-item">
-                                    <button class="btn btn-success btn-m rounded-1"  style="margin-left: 130px !important;" type="button" data-toggle="modal" data-target="#updateModal" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-success btn-m rounded-1"
+                                            style="margin-left: 130px !important;" type="button" data-toggle="modal"
+                                            data-target="#updateModal" data-placement="top" title="Edit"><i
+                                            class="fa fa-edit"></i></button>
                                 </li>
                             </ul>
                             <!-- Update Modal -->
-                            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="updateModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <form action="{{ route('post.update', $post) }}" method="POST">
@@ -47,20 +52,25 @@
                                             <div class="modal-header">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="typeText">Title</label>
-                                                    <input type="text" id="newTitle" name="newTitle" class="form-control" value="{{ $post->title }}"/>
+                                                    <input type="text" id="newTitle" name="newTitle"
+                                                           class="form-control" value="{{ $post->title }}"/>
                                                 </div>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="textAreaExample">Post Body</label>
-                                                    <textarea class="form-control" id="newBody" name="newBody" rows="4">{{ $post->body }}</textarea>
+                                                    <textarea class="form-control" id="newBody" name="newBody"
+                                                              rows="4">{{ $post->body }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
                                                 <button type="submit" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </form>
@@ -74,10 +84,13 @@
                                     @csrf
                                     @method('delete')
                                     <li class="list-inline-item">
-                                        <button class="btn btn-danger btn-m rounded-1" type="button" data-toggle="modal" data-target="#deleteModal" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-danger btn-m rounded-1" type="button" data-toggle="modal"
+                                                data-target="#deleteModal" data-placement="top" title="Delete"><i
+                                                class="fa fa-trash"></i></button>
                                     </li>
                                     <!-- Delete Modal -->
-                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content alert-danger" style="background-color: #f8d7da">
                                                 <div class="row">
@@ -88,7 +101,9 @@
                                                     </div>
                                                     <div class="col-lg-5">
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                    data-dismiss="modal">Cancel
+                                                            </button>
                                                             <button type="submit" class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </div>
@@ -127,41 +142,44 @@
                     </div>
                 @endauth
 
-                <!-- Single Comment -->
+            <!-- Single Comment -->
                 @if ($comments->count())
                     @foreach ($comments as $comment)
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-10 col-md-11">
-                                        <div>
-                                            <div class="mic-info">
-                                                By:  <b><span>{{ $comment->user->name }}</span></b> <span>{{ $post->created_at->diffForHumans() }}</span>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xs-10 col-md-11">
+                                            <div>
+                                                <div class="mic-info">
+                                                    By: <b><span>{{ $comment->user->name }}</span></b>
+                                                    <span>{{ $post->created_at->diffForHumans() }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="comment-text">
-                                            {{ $comment->body }}
-                                        </div>
-                                        @if (auth()->user() && $comment->ownedBy(auth()->user()))
-                                            <div class="action">
-                                                <button type="button" class="btn btn-primary" style="padding: 1px 7px" title="Edit">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger" style="padding: 1px 7px" title="Delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
+                                            <div class="comment-text">
+                                                {{ $comment->body }}
                                             </div>
-                                        @endif
+                                            @if (auth()->user() && $comment->ownedBy(auth()->user()))
+                                                <div class="action">
+                                                    <button type="button" class="btn btn-primary"
+                                                            style="padding: 1px 7px" title="Edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger"
+                                                            style="padding: 1px 7px" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     @endforeach
 
-                    @else
-                        <p>There are no comments</p>
+                @else
+                    <p>There are no comments</p>
                 @endif
 
             </div>
